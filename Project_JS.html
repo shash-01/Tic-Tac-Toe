@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TIC-TAC TOE</title>
+    <style>
+         @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap");
+   *
+   {
+    font-family: 'poppins';
+   }    
+.nav
+{
+    background-color: rgb(103, 185, 240);
+    color:white;
+    padding:10px;
+    font-family: 'poppins';
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top:0px;
+    left:0px;
+    right:0px;
+}
+
+.nav li
+{
+    text-decoration: none;
+    list-style: none;
+    font-weight: 600;
+}
+.gamecont
+{
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    justify-content: center;
+    position:relative;
+    top:100px;
+}
+.container
+{
+display:grid;
+grid-template-columns: repeat(3,10vw);
+grid-template-rows: repeat(3,10vw);
+
+}
+.box
+{
+    border:2px solid black;
+    font-size: 8vw;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+.box:hover
+{
+    background-color: yellow;
+    cursor: pointer;
+}
+.img img
+{
+    width:0;
+    transition: width 1s ease-in-out;
+}
+
+.br
+{
+    border-right:0 ;
+}
+.bl
+{
+    border-left: 0;
+}
+.bt
+{
+    border-top: 0;
+}
+.bb
+{
+    border-bottom: 0;
+}
+button
+    {
+        padding: 10px;
+            height: auto;
+            width: 100px;
+            background-color: rgb(251, 255, 0);
+            color: black;
+            border-radius: 20px;
+            border: 0px;
+            outline: none;
+            box-shadow: 0px 2px 4px -1px grey;
+            position: absolute;
+            left: 80%;
+            top: 23%;
+            cursor: pointer;
+            transform: translate(-50%, -50%);
+            font-weight: 600;
+            font-size: 18px;
+    }
+    .gameinfo
+    {
+        position: relative;
+        left:20px;
+        text-align: center;
+        
+    }
+@media screen and (max-width:480px) {
+    .container{
+        display:grid;
+grid-template-columns: repeat(3,30vw);
+grid-template-rows: repeat(3,30vw);
+position: absolute;
+left:10px;
+}
+    .gameinfo
+    {
+        position: relative;
+        top:350px;
+        left:0px;
+        text-align: center;
+        
+    }
+    .gameinfo h1
+    {
+        width:250px
+    }
+    button
+    {
+        padding: 10px;
+            height: auto;
+            width: 100px;
+            background-color: rgb(251, 255, 0);
+            color: black;
+            border-radius: 20px;
+            border: 0px;
+            outline: none;
+            box-shadow: 0px 2px 4px -1px grey;
+            position: absolute;
+            left: 50%;
+            top: 110%;
+            cursor: pointer;
+            transform: translate(-50%, -50%);
+            font-weight: 600;
+            font-size: 18px;
+    }
+}
+    </style>
+</head>
+<body>
+     <div class="nav">
+        <li>Tic-Tac Toe</li>
+     </div>
+<div class="gamecont">
+    <div class="container">
+        <div class="box bt bl" ><span class="textbox"></span></div>
+        <div class="box bt"><span class="textbox"></span></div>
+        <div class="box bt br"><span class="textbox"></span></div>
+        <div class="box bl"><span class="textbox"></span></div>
+        <div class="box"><span class="textbox"></span></div>
+        <div class="box br"><span class="textbox"></span></div>
+        <div class="box bl bb"><span class="textbox"></span></div>
+        <div class="box bb"><span class="textbox"></span></div>
+        <div class="box bb br"><span class="textbox"></span></div>
+    </div>
+
+    <div class="gameinfo">
+        <h1> Welcome To Tic-Tac Toe</h1>
+        <div>
+            <span class="info">Turn for X</span>
+            <button id="reset">Reset</button>
+        </div>
+        <div class="img">
+            <img src="mochi-peachcat-cute-cat.gif" alt="">
+        </div>
+    </div>
+</div>
+
+    <script>
+             console.log("welcome to tictac toe");
+
+             let gameover= new Audio("mixkit-musical-game-over-959.wav");
+             let turn= new Audio("mixkit-video-game-mystery-alert-234.wav");
+             let gameoverr=false;
+             let turrn='X';
+
+             //function to change the turn
+
+             const ChangeTurn =()=>
+             {
+                return turrn=== "X" ? "0" : "X";
+             }
+
+             const win=()=>
+             {
+               let wins=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+               let textbox= document.getElementsByClassName('textbox')
+               wins.forEach(e=>{
+                  if ((textbox[e[0]].innerText === textbox[e[1]].innerText) && (textbox[e[2]].innerText === textbox[e[1]].innerText) && (textbox[e[0]].innerText !=='')) {
+                    document.querySelector('.info').innerText = textbox[e[0]].innerText + " Won";
+                    gameoverr=true;
+                    document.querySelector('.img').getElementsByTagName('img')[0].style.width='200px';
+                  }
+               })
+             }
+
+             //game logic
+             let boxes= document.getElementsByClassName("box");
+             Array.from(boxes).forEach(element=>
+             {
+                let textbox= element.querySelector('.textbox');
+                 element.addEventListener('click',()=>
+                {
+                   if (textbox.innerText==="") {
+                    textbox.innerText=turrn;
+                    turrn=ChangeTurn();
+                    turn.play();
+                    win();
+                    if(!gameoverr)
+                   {
+                    document.getElementsByClassName('info')[0].innerText = "turn for " + turrn;
+                   }
+                }
+                })
+             })
+
+             //reset button
+             reset.addEventListener('click' ,()=>
+            {
+                let textboxs= document.querySelectorAll('.textbox');
+                Array.from(textboxs).forEach(element=>
+                    {
+                        element.innerText=" ";
+                    }
+                );
+                   turrn='X';
+                   gameoverr=false;
+                   
+                    document.getElementsByClassName('info')[0].innerText = "turn for " + turrn;
+                    document.querySelector('.img').getElementsByTagName('img')[0].style.width='0px';
+            })
+
+    </script>
+</body>
+</html>
