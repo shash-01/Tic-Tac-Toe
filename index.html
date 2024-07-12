@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TIC-TAC TOE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
          @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap");
    *
@@ -13,6 +16,7 @@
    body
    {
     background-color: rgb(7, 7, 7);
+    transition: background-color 0.3s, color 0.3s;
    }
 .nav
 {
@@ -29,6 +33,22 @@
     left:0px;
     right:0px;
 }
+#mode-toggle {
+    position: fixed;
+    top: 0px;
+    right: 10px;
+    padding: 10px 20px;
+}
+body.light-mode {
+    background-color: white;
+    color: black;
+}
+
+body.dark-mode {
+    background-color: black;
+    color: white;
+}
+
 
 .nav li
 {
@@ -43,6 +63,15 @@
     justify-content: center;
     position:relative;
     top:100px;
+}
+.gamecont.light-mode {
+    background-color: white;
+    color: black;
+}
+
+.gamecont.dark-mode {
+    background-color: black;
+    color: white;
 }
 .container
 {
@@ -89,7 +118,7 @@ grid-template-rows: repeat(3,10vw);
 {
     border-bottom: 0;
 }
-button
+.button
     {
         padding: 10px;
             height: auto;
@@ -159,6 +188,9 @@ left:10px;
 {
     top:130px;
 }
+#mode-toggle {
+ top:0px
+}
     .gameinfo
     {
         position: relative;
@@ -173,7 +205,7 @@ left:10px;
         width:250px;
         text-shadow: 2px 2px 15px rgb(218, 23, 218);
     }
-    button
+    .button
     {
         padding: 10px;
             height: auto;
@@ -211,6 +243,7 @@ left:10px;
 <body>
      <div class="nav">
         <li>Tic-Tac Toe</li>
+        <div id="mode-toggle"><i class="fa-solid fa-circle-half-stroke"></i></div>
      </div>
 <div class="gamecont">
     <div class="container">
@@ -229,7 +262,7 @@ left:10px;
         <h1> Welcome To Tic-Tac Toe</h1>
         <div>
             <span class="info">Turn for X</span>
-            <button id="reset">Reset</button>
+            <button id="reset" class="button">Reset</button>
         </div>
         <div class="img">
             <img src="mochi-peachcat-cute-cat.gif" alt="">
@@ -303,6 +336,47 @@ left:10px;
                     document.getElementsByClassName('info')[0].innerText = "turn for " + turrn;
                     document.querySelector('.img').getElementsByTagName('img')[0].style.width='0px';
             })
+
+            //modes 
+
+            document.addEventListener('DOMContentLoaded', () => {
+    const toggleButton = document.getElementById('mode-toggle');
+    const body = document.body;
+    const gamecont = document.querySelector('.gamecont');
+    const nav = document.querySelector('.nav');
+    const gameinfo = document.querySelector('.gameinfo');
+
+    // Check for saved user preference, if any, on initial load
+    if (localStorage.getItem('mode') === 'dark') {
+        body.classList.add('dark-mode');
+        gamecont.classList.add('dark-mode');
+        nav.classList.add('dark-mode');
+        gameinfo.classList.add('dark-mode');
+    } else {
+        body.classList.add('light-mode');
+        gamecont.classList.add('light-mode');
+        nav.classList.add('light-mode');
+        gameinfo.classList.add('light-mode');
+    }
+
+    // Toggle light and dark mode
+    toggleButton.addEventListener('click', () => {
+        if (body.classList.contains('light-mode')) {
+            body.classList.replace('light-mode', 'dark-mode');
+            gamecont.classList.replace('light-mode', 'dark-mode');
+            nav.classList.replace('light-mode', 'dark-mode');
+            gameinfo.classList.replace('light-mode', 'dark-mode');
+            localStorage.setItem('mode', 'dark');
+        } else {
+            body.classList.replace('dark-mode', 'light-mode');
+            gamecont.classList.replace('dark-mode', 'light-mode');
+            nav.classList.replace('dark-mode', 'light-mode');
+            gameinfo.classList.replace('dark-mode', 'light-mode');
+            localStorage.setItem('mode', 'light');
+        }
+    });
+});
+
 
     </script>
 </body>
