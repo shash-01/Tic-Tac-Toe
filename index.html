@@ -15,13 +15,13 @@
    }    
    body
    {
-    background-color: rgb(34, 34, 34);
-    transition: background-color 0.3s, color 0.3s;
+    background-color: rgb(20, 26, 33);
+    
    }
 .nav
 {
-    background-color: /*rgb(103, 185, 240)*/rgb(124, 64, 236);
-    color:rgb(0, 0, 0);
+    background-color: /*rgb(103, 185, 240)*/rgb(27, 110, 192);
+    color:rgb(255, 255, 255);
     padding:10px;
     font-family: 'poppins';
     font-size: 30px;
@@ -45,7 +45,7 @@ body.light-mode {
 }
 
 body.dark-mode {
-    background-color: rgb(23, 23, 23);
+    background-color: rgb(20, 26, 33);
     color: white;
 }
 
@@ -82,12 +82,7 @@ grid-template-rows: repeat(3,10vw);
     justify-content: center;
     align-items: center;
 }
-.box.dark-mode {
-   border: 4px solid rgb(76, 32, 234);;
-}
-.box.light-mode {
-   border:4px solid black;
-}
+
 .box:hover
 {
     background-color: rgb(98, 38, 238);
@@ -237,7 +232,7 @@ left:10px;
     {
         font-size:60px;
         text-shadow: 2px 2px 25px greenyellow;
-
+       
     }
     .img 
     {
@@ -255,7 +250,7 @@ left:10px;
      </div>
 <div class="gamecont">
     <div class="container">
-        <div class="box bt bl" ><span class="textbox"></span></div>
+        <div class="box bt bl" ><span class="textbox">X</span></div>
         <div class="box bt"><span class="textbox"></span></div>
         <div class="box bt br"><span class="textbox"></span></div>
         <div class="box bl"><span class="textbox"></span></div>
@@ -283,7 +278,7 @@ left:10px;
              let turn= new Audio("mixkit-video-game-mystery-alert-234.wav");
              let gameoverr=false;
              let turrn='X';
-
+             const boxx= document.getElementsByClassName('box');
              //function to change the turn
 
              const ChangeTurn =()=>
@@ -316,6 +311,8 @@ left:10px;
                     textbox.innerText=turrn;
                     turrn=ChangeTurn();
                     turn.play();
+                  
+                  box.style.backgroundColor="black";
                     win();
                     if(!gameoverr)
                    {
